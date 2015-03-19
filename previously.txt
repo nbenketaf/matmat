@@ -1,0 +1,68 @@
+EPISODE 1 : git pour les nuls
+
+- installer git
+- se créer un compte github
+- en configurer la connexion ssh : https://help.github.com/articles/generating-ssh-keys/
+(pour la config de clés ssh pour plusieurs comptes : http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/ )
+- git clone git@github.com:nbenketaf/matmat.git (après avoir été ajouté comme contributeur au projet)
+=> aura pour effet de dupliquer le projet en local, dans un répertoire du répertoire courant. On peut le manipuler comme n'importe quel répertoire.
+
+Les infos relatives à git sont dans le répertoire .git à la racine du projet.
+(NDNabil :  idéalement quand tu bosse avec git, c'est d'avoir un "prompt" bash (ou mieux, zsh :)) qui soit décoré, en te disant que tu es dans un répertoire qui est un repo git, sur quelle branche tu es, si tu as des modifs non commitées etc... 
+le top c'est d'installer zsh (et non bash) avec le projet oh-my-zsh : https://github.com/robbyrussell/oh-my-zsh/)
+
+- Premier truc à faire en arrivant sur un répertoire git : le point sur la situation.
+Se fait grâce à git status, qui liste toutes les modifs "pending" (les modifs faites en local)
+
+Pour info, les fichiers sont stockés 3 fois : 
+working directory
+staging area
+git repo
+(cf. http://www.miximum.fr/enfin-comprendre-git.html)
+
+- Avant de faire un commit, il faut donc ajouter les fichiers dans la staging area, qui est une "capsule" qui véhiculera les modifs vers le repo.
+
+git add (fichier) ou git add . pour ajouter tous les fichiers pending.
+
+=> git status doit maintenant afficher les fichiers en vert (et contre tous).
+
+- git commit va lancer l'éditeur de texte par défaut : il faut donc penser à faire un peu de configuration.
+Notamment : 
+git config --global core.editor vim si on veut que vim soit l'éditeur par défaut.
+
+git config --global user.name "John Doe"
+git config --global user.email johndoe@example.com
+
+pour spécifier l'identité de l'user git.
+
+La config est résumée par git config -l
+
+- Donc, git commit va lancer l'éditeur par défaut, pour que l'utilisateur remplisse le changelog.
+NDNabil : Quelques conventions :
+
+la première ligne sert à mettre un message global, les grandes lignes de ce que contient le commit, avec pas plus de 70 caractère, ou un truc du genre
+
+ensuite RIEN sur la deuxième ligne
+
+si tu veux écrire des tartines sur ton commit tu le fais à partir de la 3eme ligne
+
+Attention : après le git commit, tout a été fait en local. Le push vers le serveur n'est pas encore effectif.
+
+- On peut utiliser gitk pour voir l'état actuel du commit, (notamment du dernier commit en date), des branches, etc.
+
+NDNabil : donc un commit qu'est-ce que c'est en fait
+et bien c'est un objet qui contient un certain nombre d'infos, dont les fichiers que tu as modifié
+l'auteur du commit
+le timestamp
+et potentiellement un lien vers un commit parent
+tout ça git en fait un hashcode
+et c'est ça un commit au final, un hashcode
+que tu dois retrouver dans gitk.
+du coup
+une branche qu'est-ce que c'est ?
+et bien ce n'est ni plus ni moins qu'un pointeur sur un commit
+
+(plus d'infos sur les branches : http://git-scm.com/book/it/v2/Git-Branching-Branches-in-a-Nutshell
+Le bouquin en entier est d'ailleurs à lire)
+
+- git push envoit les données sur le repo git.
