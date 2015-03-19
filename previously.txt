@@ -66,3 +66,9 @@ et bien ce n'est ni plus ni moins qu'un pointeur sur un commit
 Le bouquin en entier est d'ailleurs à lire)
 
 - git push envoit les données sur le repo git.
+
+EPISODE 2 : git hard with a vengeance
+
+
+- git pull permet de récupérer l'état courant du projet sur le repo.
+
