@@ -1,0 +1,2 @@
+1) Se connecter à un repo distant ? Est-ce explicite ?
+Pour l'instant, toutes mes commandes git semblent reliées au repo matmat, mais et si j'ai plusieurs repo ? 
