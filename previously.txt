@@ -72,3 +72,59 @@ EPISODE 2 : git hard with a vengeance
 
 - git pull permet de récupérer l'état courant du projet sur le repo.
 
+- Maintenant, à propos des branches :
+
+On se rappelle qu'une branche n'est qu'un pointeur vers un commit. La branche par défaut s'appelle master.
+Pour créer une nouvelle branche : git branch nom_branche
+Pour lister les branches : git branch
+
+Il y a un pointeur spécial, HEAD, qui pointe vers la branche sur laquelle on se trouve actuellement.
+ Du coup, changer de branche = déplacer HEAD.
+HEAD = le point jaune dans gitk, sinon en mode texte, utiliser git log, qui est très customisable.
+
+Lorsqu'on crée une branche, elle est créée à partir du HEAD.
+Attention, en créant une branche, on ne s'y déplace pas automatiquement : la commande pour s'y déplacer : git checkout mabranche.
+
+Dès lors, toutes les modifs seront effectuées sur la branche créée, qui s'éloigne de master.
+
+- Pour merger :
+
+1ère option : se placer sur la branche master, et "git merge mabranche"
+A pour effet de créer un commit spécialement pour le merge, et un historique potentiellement tortueux.
+
+2ème option : rebase.
+Remarque : d'abord, on va regarder comment annuler le merge précédent. Puisqu'il s'agit d'un commit, on peut retourner au commit précédent, par la grace de la commande suivante :
+git reset HEAD~1
+
+Le commit de merge n'est pas supprimé, il devient simplement orphelin. Il y a une commande qui permet de les lister (TODO : la trouver).
+Pour récupérer un commit orphelin, il faut récuperer son hashcode, puis d'y accéder via git checkout (git checkout hashcode)
+
+En réalité il y a 3 types de git reset
+
+git reset --soft, qui déplace juste la HEAD
+git reset --hard, qui déplace la HEAD et supprime toutes les modifs depuis le dernier commit.
+git reset --mixed, qui déplace la HEAD et supprime les fichiers de la staging area (ceux added mais pas commité).
+
+Remarque : parmi les différences entre reset et checkout, par convention :
+- on utilise reset plutôt pour se déplacer parmi les commit ou annuler toutes nos modifs en cours.
+- on utilise (parmi tous ses usages) git checkout pour changer de branche (git checkout mabranche) ou récuperer un fichier particulier d'un commit (git checkout commit fichier).
+
+Donc, rebase : le principe consiste à rejouer tous les merges d'une branche sur une autre, à partir du point de leur divergence.
+Il faut se placer sur la branche dont on veut rejouer les commit :
+
+git checkout mabranche
+
+puis
+
+git rebase master.
+
+A ce moment là, on constate que les checkout de mabranche sont "au dessus" de master. L'historique est linéaire, les checkout ont eu lieu à partir du dernier commit sur la branche master, et la branche mabranche trône au sommet des commit.
+Ensuite, en faisant
+
+git merge mabranche
+
+Alors master a rejoint mabranche. Les deux branches pointent sur le même commit (rappel : les commits ignorent la branche à laquelle ils appartiennent).
+
+Quelques docs sur les branches :
+- un site interactif qui présentent quelques grands principes : http://www.wei-wang.com/ExplainGitWithD3/#
+- un livre en ligne (qui en fait traite git dans son ensemble) : http://www.wei-wang.com/ExplainGitWithD3/#
